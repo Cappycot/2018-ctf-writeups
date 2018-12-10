@@ -1,0 +1,1 @@
+https://github.com/KINGSABRI/CVE-in-Ruby/tree/master/CVE-2014-6271

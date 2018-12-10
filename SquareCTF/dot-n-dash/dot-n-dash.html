@@ -1,0 +1,93 @@
+<html>
+<head>
+  <style>
+  @font-face{
+    font-family: Monospace;
+  }
+  body * {
+    font-family: 'Monospace', serif;
+    margin-top: 10px;
+  }
+  body {
+    display: flex;
+    flex-flow: column;
+    margin: 0 auto;
+    width: 500px;
+  }
+  div {
+    flex: 1 0;
+    align-items: flex-end;
+  }
+  textarea {
+    width: 100%;
+    flex: 5 0;
+  }
+  // Sorry, the CSS-person left in a wormhole...
+  </style>
+</head>
+<body>
+<p>It is a known fact that space travelers love to devis unique encoding and decoding methods...</p>
+  <textarea id="input" placeholder="type something here..."></textarea>
+  <div>
+    <button onclick="return encode();">Encode</button>
+    <button onclick="return decode();">Decode</button>
+  </div>
+<script>
+function encode() {
+  var t = input.value;
+  if (/^[-.]+$/.test(t)) {
+    alert("Your text is already e'coded!");
+  } else {
+    input.value = _encode(t);
+  }
+  return false;
+}
+
+function decode() {
+  var t = input.value;
+  if (/^[-.]*$/.test(t)) {
+    input.value = _decode(t);
+  } else {
+    alert("Your text is not e'coded!");
+  }
+  return false;
+}
+
+function _encode(input) {
+  var a=[];
+  for (var i=0; i<input.length; i++) { // For each character in input
+    var t = input.charCodeAt(i); // Take its unicode number
+    console.log(input.charAt(i));
+    for (var j=0; j<8; j++) { // Do this 8 times
+      if ((t >> j) & 1) { // If it's 0th, 1st, 2nd... 7th bit is 1
+	console.log(1 + j + (input.length - 1 - i) * 8);
+        a.push(1 + j + (input.length - 1 - i) * 8); // Push 1 + (0/1/2/.../7) + (input length - i - (0/1/2/.../input length - 1)) * 8
+      }
+    }
+  }
+
+  var b = [];
+  while (a.length) { // Randomize a and make it b.
+    var t = (Math.random() * a.length)|0;
+    b.push(a[t]);
+    a = a.slice(0, t).concat(a.slice(t+1));
+  }
+
+  var r = '';
+  while (b.length) {
+    var t = b.pop();
+    r = r + "-".repeat(t) + ".";
+  }
+  return r;
+}
+
+// Everything below this line was lost due to cosmis radiation. The engineer who knows
+// where the backups are stored already left.
+function _decode(input) {
+  return "";
+}
+</script>
+
+<!-- Puzzle by Alok. Enjoy :) -->
+</body>
+</html>
